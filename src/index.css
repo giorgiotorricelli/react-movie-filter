@@ -5,3 +5,109 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.main-wrapper {
+  background-image: linear-gradient(to bottom, rgb(55, 55, 169), rgb(0, 0, 61));
+  height: 100vh;
+}
+
+.main-wrapper * {
+  border-style: none;
+}
+
+.select {
+  border-radius: 5px;
+}
+
+.main-wrapper ul {
+  background-color: rgba(60, 0, 255, 0.21);
+  color: white;
+  font-weight: 600;
+  list-style: none;
+  padding: 20px 64px;
+  margin: 0;
+  border-radius: 20px;
+  border: 5px solid rgba(250, 109, 255, 0.412);
+  height: 280px;
+  aspect-ratio: 1.75;
+  overflow-y: auto;
+}
+
+.main-wrapper ul::-webkit-scrollbar-track {
+  background: transparent; /* Rende il track trasparente */
+  
+  
+  /* Diminuisce l'altezza effettiva della scrollbar */
+  margin-block: 20px; /* Aggiunge 20px di spazio sopra e sotto */
+}
+
+.main-wrapper ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-wrapper ul::-webkit-scrollbar-thumb {
+  background-color: rgba(250, 109, 255, 0.659);
+  border-radius: 4px;
+  border: 2px solid transparent; /* Crea lo spazio vuoto attorno alla maniglia */
+  background-clip: content-box; /* Forza il colore solo dentro l'area senza bordo */
+}
+
+
+
+
+.search-by-name {
+  border-right: 3px solid white;
+  padding-right: 20px;
+}
+
+.search-by-genre{
+  color: white;
+  padding-left: 20px;
+}
+
+.search-input{
+  border-radius: 10px;
+}
+
+
+
+
+.complete-list-btn {
+  background-color: rgba(86, 120, 215, 0.567);
+  color: rgb(255, 255, 255);
+  width: 25%;
+  padding: 3px 0;
+  transition: all 0.6s;
+}
+
+.complete-list-btn:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgba(86, 215, 198, 0.716);
+  width: 60%;
+  transition: all 0.4s;
+}
+
+.new-movie-title {
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.text-danger {
+  translate: 0 -120%;
+}
+
+.aggiungi-btn {
+  background-color: rgba(86, 120, 215, 0.567);
+  color: rgb(255, 255, 255);
+  margin-top: 10px;
+  padding: 3px 10px;
+  transition: all 0.6s;
+}
+
+
+.aggiungi-btn:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgba(86, 215, 198, 0.716);
+  padding: 3px 30px;
+  transition: all 0.4s;
+}
