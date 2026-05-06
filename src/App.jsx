@@ -35,9 +35,7 @@ function App() {
       });
 
       setMovieDisplayed(filteredByName);
-    } else {
-      setMovieDisplayed(movieList);
-    }
+    } 
 
 
 
@@ -75,15 +73,19 @@ function App() {
         <option value="Romantico">Romantico</option>
         <option value="Azione">Azione</option>
       </select>
-      
-      <input type="text" value={search} onChange={inputChangeHandler}/> //questo sarà il mio live search
+      <form >
+        <input type="text" />
+        <input type="text" />
+        <button>Aggiungi</button>
+      </form>
+      <h3>Cerca per nome</h3>
+      <input type="text" value={search} onChange={inputChangeHandler}/> {/* questo sarà il mio live search */}
       <ul>
         {movieDisplayed.map(movie => {
           const randomId = crypto.randomUUID();
           return <li key={randomId}>{`Titolo: ${movie.title} - Genere: ${movie.genre}`}</li>
         })}
       </ul>
-      <p>{search}</p>
     </div>
 
   </>;
