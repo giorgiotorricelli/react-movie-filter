@@ -15,6 +15,7 @@ function App() {
   const [selectValue, setSelectValue] = useState('');
   const [movieList, setMovieList] = useState(initialMovies);
   const [movieDisplayed, setMovieDisplayed] = useState(movieList);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     console.log(`scelto genere ${selectValue}`)  // setup callback
@@ -28,21 +29,39 @@ function App() {
       setMovieDisplayed(movieList);
     }
 
+    if (search !== '') {
+      const filteredByName = movieList.filter(movie => { //con questa vado a filtrare per nome avendo il valore di search
+        return movie.title.toLowerCase().includes(search);
+      });
 
-
-
+      setMovieDisplayed(filteredByName);
+    } else {
+      setMovieDisplayed(movieList);
+    }
 
 
 
     return () => {  // cleanup callback
       console.log(`uscito dal genere ${selectValue}`)
     }
-  }, [selectValue]);
+  }, [selectValue, search]);
+
+  useEffect(() => {
+    console.log(`valore del campo di ricerca: ${search}`);
+    
+  }, [search])
 
   function selectChangeHandler(event) {
     const target = event.target;
     const value = target.value;
     setSelectValue(value);
+  };
+
+
+  function inputChangeHandler(event){
+    const target = event.target;
+    const value = target.value;
+    setSearch(value);
   }
 
 
@@ -56,12 +75,15 @@ function App() {
         <option value="Romantico">Romantico</option>
         <option value="Azione">Azione</option>
       </select>
+      
+      <input type="text" value={search} onChange={inputChangeHandler}/> //questo sarà il mio live search
       <ul>
         {movieDisplayed.map(movie => {
           const randomId = crypto.randomUUID();
           return <li key={randomId}>{`Titolo: ${movie.title} - Genere: ${movie.genre}`}</li>
         })}
       </ul>
+      <p>{search}</p>
     </div>
 
   </>;
