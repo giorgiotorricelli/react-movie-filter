@@ -70,7 +70,6 @@ function App() {
       ...prev,       // copia i valori esistenti 
       [name]: value  // aggiorna solo il campo che sta cambiando
     }));
-
   };
 
 
@@ -86,8 +85,13 @@ function App() {
         <option value="Azione">Azione</option>
       </select>
       <form onSubmit={submitNewMovieHandler}>
-        <input type="text" placeholder='titolo' name='title' value={newMovieData.title} onChange={changeNewMovieDataHandler} />
-        <input type="text" placeholder='genere' name='genre' value={newMovieData.genre} onChange={changeNewMovieDataHandler} />
+        <input type="text" placeholder='titolo' name='title' value={newMovieData.title} onChange={changeNewMovieDataHandler} required />
+        <select name='genre' value={newMovieData.genre} onChange={changeNewMovieDataHandler}>
+          <option value="Fantascienza">Fantascienza</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Romantico">Romantico</option>
+          <option value="Azione">Azione</option>
+        </select>
         <button type='submit' className='btn btn-primary'>Aggiungi</button>
       </form>
       <h3>Cerca per nome</h3>
