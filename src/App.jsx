@@ -16,10 +16,11 @@ function App() {
   const [movieList, setMovieList] = useState(initialMovies);
   const [movieDisplayed, setMovieDisplayed] = useState(movieList);
   const [search, setSearch] = useState('');
+  const [newMovieData, setNewMovieData] = useState({ title: '', genre: '' }); //collegata agli input per aggiungere film nuovi
 
   useEffect(() => {
     console.log(`scelto genere ${selectValue}`)  // setup callback
-    if (selectValue !== '') { 
+    if (selectValue !== '') {
       const filteredByGenre = movieList.filter(movie => { //con questa vado a filtrare per genere avendo il genere scelto in selectValue
         return movie.genre === selectValue;
       });
@@ -35,19 +36,14 @@ function App() {
       });
 
       setMovieDisplayed(filteredByName);
-    } 
+    }
 
 
 
     return () => {  // cleanup callback
       console.log(`uscito dal genere ${selectValue}`)
     }
-  }, [selectValue, search]);
-
-  useEffect(() => {
-    console.log(`valore del campo di ricerca: ${search}`);
-    
-  }, [search])
+  }, [selectValue, search, movieList]);
 
   function selectChangeHandler(event) {
     const target = event.target;
@@ -56,16 +52,32 @@ function App() {
   };
 
 
-  function inputChangeHandler(event){
+  function inputChangeHandler(event) {
     const target = event.target;
     const value = target.value;
     setSearch(value);
-  }
+  };
+
+  function submitNewMovieHandler(event) {
+    event.preventDefault();
+    setMovieList(prevList => [...movieList, newMovieData]);
+    setNewMovieData({ title: '', genre: '' });
+  };
+
+  function changeNewMovieDataHandler(event) { //avendo assegnato la callback a due input diversi ho bisogno dell'event 
+    const { name, value } = event.target; //mi prendo il valore del name e il valore del value dell'input targhetizzato
+    setNewMovieData(prev => ({
+      ...prev,       // copia i valori esistenti 
+      [name]: value  // aggiorna solo il campo che sta cambiando
+    }));
+
+  };
 
 
   return <>
     <div className="main-wrapper d-flex align-items-center flex-column">
-      <button className='btn btn-primary' onClick={() => {setSelectValue(''); console.log(selectValue);
+      <button className='btn btn-primary' onClick={() => {
+        setSelectValue(''); console.log(selectValue);
       }}>Lista completa</button>
       <select value={selectValue} onChange={selectChangeHandler} name="genres" id="genres">
         <option value="Fantascienza">Fantascienza</option>
@@ -73,13 +85,13 @@ function App() {
         <option value="Romantico">Romantico</option>
         <option value="Azione">Azione</option>
       </select>
-      <form >
-        <input type="text" />
-        <input type="text" />
-        <button>Aggiungi</button>
+      <form onSubmit={submitNewMovieHandler}>
+        <input type="text" placeholder='titolo' name='title' value={newMovieData.title} onChange={changeNewMovieDataHandler} />
+        <input type="text" placeholder='genere' name='genre' value={newMovieData.genre} onChange={changeNewMovieDataHandler} />
+        <button type='submit' className='btn btn-primary'>Aggiungi</button>
       </form>
       <h3>Cerca per nome</h3>
-      <input type="text" value={search} onChange={inputChangeHandler}/> {/* questo sarà il mio live search */}
+      <input type="text" value={search} onChange={inputChangeHandler} /> {/* questo sarà il mio live search */}
       <ul>
         {movieDisplayed.map(movie => {
           const randomId = crypto.randomUUID();
@@ -87,6 +99,7 @@ function App() {
         })}
       </ul>
     </div>
+    <p>{JSON.stringify(newMovieData)}</p>
 
   </>;
 }
